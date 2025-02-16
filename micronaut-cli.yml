@@ -1,0 +1,6 @@
+applicationType: messaging
+defaultPackage: org.jkekoamartin
+testFramework: junit
+sourceLanguage: java
+buildTool: gradle
+features: [ app-name, graalvm, gradle, http-client-test, java, java-application, junit, kafka, logback, lombok, micronaut-aop, micronaut-build, mockito, properties, readme, serialization-jackson, shade, test-resources ]
