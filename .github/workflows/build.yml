@@ -41,9 +41,11 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       # Option 1: Use Gradle task with platform parameter
-      - name: Build Native Docker Image
-        run: ./gradlew dockerBuild -PdockerPlatform=linux/arm64
+#      - name: Build Native Docker Image
+#        run: ./gradlew dockerBuild -PdockerPlatform=linux/arm64
 
+      - name: Generate Docker Build Layers
+        run: ./gradlew dockerBuildNative
 #      # Option 2: Use Buildx directly (uncomment the one you want)
 #      - name: Build Native Docker Image
 #        run: docker buildx build --platform linux/arm64 -t producer:latest --load .
