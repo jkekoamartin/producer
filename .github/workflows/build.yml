@@ -32,16 +32,31 @@ jobs:
           java-version: '21'
           cache: gradle
 
+      # Set up QEMU for multi-arch emulation
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      # Set up Docker Buildx for multi-platform builds
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Option 1: Use Gradle task with platform parameter
       - name: Build Native Docker Image
-        run: ./gradlew dockerBuild
+        run: ./gradlew dockerBuild -PdockerPlatform=linux/arm64
+
+#      # Option 2: Use Buildx directly (uncomment the one you want)
+#      - name: Build Native Docker Image
+#        run: docker buildx build --platform linux/arm64 -t producer:latest --load .
+
       - name: Verify Docker Image
         run: docker images  # Debugging step
-      - name: 'Login to GitHub Container Registry'
+
+      - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{github.actor}}
-          password: ${{secrets.GHCR_TOKEN}}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Tag Docker Image
         run: |
