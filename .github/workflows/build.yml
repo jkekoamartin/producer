@@ -14,9 +14,13 @@ jobs:
     env:
       # Define the full image name using your GitHub username/organization and repository name.
       IMAGE_NAME: ghcr.io/${{ github.repository }}
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      - name: Check architecture
+        run: uname -m
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
